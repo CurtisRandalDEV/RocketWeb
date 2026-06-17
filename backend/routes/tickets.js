@@ -103,7 +103,7 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const [[ticket]] = await db.query(`
-            SELECT t.*, p.name as project_name, u.name as client_name 
+            SELECT t.*, p.name as project_name, u.name as client_name, u.company as client_company
             FROM tickets t
             JOIN projects p ON t.project_id = p.id
             JOIN users u ON t.client_id = u.id
