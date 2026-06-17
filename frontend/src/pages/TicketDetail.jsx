@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { fetchWithAuth } from '../api/api';
+import { fetchWithAuth, API_URL } from '../api/api';
 import { ArrowLeft, Send, Clock, User, Briefcase, Activity, Tag, Hash, Calendar, MessageSquare, AlertCircle, Paperclip, Lock } from 'lucide-react';
 
 export default function TicketDetail() {
@@ -71,7 +71,7 @@ export default function TicketDetail() {
             const formData = new FormData();
             formData.append('file', file);
             try {
-                const uploadRes = await fetch('http://localhost:5000/api/tickets/upload', {
+                const uploadRes = await fetch(`${API_URL}/tickets/upload`, {
                     method: 'POST',
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
                     body: formData
@@ -168,7 +168,7 @@ export default function TicketDetail() {
                             {ticket.description}
                             {ticket.attachment_url && (
                                 <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid var(--glass-border)' }}>
-                                    <a href={ticket.attachment_url.startsWith('http') ? ticket.attachment_url : `http://localhost:5000${ticket.attachment_url}`} target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 16px', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '8px', color: 'var(--accent-color)', fontWeight: '500', fontSize: '0.9rem' }}>
+                                    <a href={ticket.attachment_url.startsWith('http') ? ticket.attachment_url : `${API_URL.replace('/api', '')}${ticket.attachment_url}`} target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 16px', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '8px', color: 'var(--accent-color)', fontWeight: '500', fontSize: '0.9rem' }}>
                                         <Paperclip size={16} /> Ver Archivo Adjunto
                                     </a>
                                 </div>
@@ -213,7 +213,7 @@ export default function TicketDetail() {
                                         {msg.content}
                                         {msg.attachment_url && (
                                             <div style={{ marginTop: '10px' }}>
-                                                <a href={msg.attachment_url.startsWith('http') ? msg.attachment_url : `http://localhost:5000${msg.attachment_url}`} target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', color: 'inherit', textDecoration: 'underline', opacity: 0.9 }}>
+                                                <a href={msg.attachment_url.startsWith('http') ? msg.attachment_url : `${API_URL.replace('/api', '')}${msg.attachment_url}`} target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', color: 'inherit', textDecoration: 'underline', opacity: 0.9 }}>
                                                     <Paperclip size={14} /> Archivo Adjunto
                                                 </a>
                                             </div>

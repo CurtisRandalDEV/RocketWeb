@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { fetchWithAuth } from '../api/api';
+import { fetchWithAuth, API_URL } from '../api/api';
 import { useNavigate } from 'react-router-dom';
 import { LogOut, PlusCircle, MessageSquare, Paperclip } from 'lucide-react';
 
@@ -54,7 +54,7 @@ export default function ClientDashboard() {
             const formData = new FormData();
             formData.append('file', file);
             try {
-                const uploadRes = await fetch('http://localhost:5000/api/tickets/upload', {
+                const uploadRes = await fetch(`${API_URL}/tickets/upload`, {
                     method: 'POST',
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
                     body: formData
