@@ -335,7 +335,7 @@ export default function AdminDashboard() {
                         <h2>Bandeja de Tickets</h2>
                         <div className="kanban-board">
                             {['Nuevo', 'En Revisión', 'En Desarrollo', 'Esperando al Cliente', 'Completado'].map(status => {
-                                const columnTickets = tickets.filter(t => t.status === status);
+                                const columnTickets = tickets.filter(t => t.status === status).sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
                                 return (
                                     <div key={status} className="kanban-column">
                                         <div className="kanban-column-header">
