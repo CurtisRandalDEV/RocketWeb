@@ -156,6 +156,26 @@ export default function AdminDashboard() {
         }
     };
 
+    const renderLogDetails = (details) => {
+        const match = details.match(/ticket #(\d+)/i);
+        if (match) {
+            const parts = details.split(match[0]);
+            return (
+                <>
+                    {parts[0]}
+                    <span 
+                        onClick={() => navigate(`/ticket/${match[1]}`)} 
+                        style={{ color: 'var(--accent-color)', cursor: 'pointer', textDecoration: 'underline', fontWeight: '500' }}
+                    >
+                        {match[0]}
+                    </span>
+                    {parts[1]}
+                </>
+            );
+        }
+        return details;
+    };
+
     return (
         <div className="app-container">
             <div className="sidebar">
@@ -511,7 +531,7 @@ export default function AdminDashboard() {
                                             <td style={{ padding: '16px 24px', borderBottom: '1px solid var(--glass-border)' }}>
                                                 <span className={`badge ${log.action === 'login' ? 'gray' : 'green'}`}>{log.action}</span>
                                             </td>
-                                            <td style={{ padding: '16px 24px', borderBottom: '1px solid var(--glass-border)' }}>{log.details}</td>
+                                            <td style={{ padding: '16px 24px', borderBottom: '1px solid var(--glass-border)' }}>{renderLogDetails(log.details)}</td>
                                         </tr>
                                     ))}
                                     {logs.length === 0 && (
