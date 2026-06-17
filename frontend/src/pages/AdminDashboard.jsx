@@ -59,7 +59,9 @@ export default function AdminDashboard() {
         const name = e.target.name.value;
         const email = e.target.email.value;
         const company = e.target.company.value;
-        const phone = e.target.phone.value;
+        const rawPhone = e.target.phone.value;
+        const countryCode = e.target.country_code.value;
+        const phone = countryCode + rawPhone.replace(/\D/g, '');
 
         try {
             const res = await fetchWithAuth('/admin/clients', {
@@ -233,7 +235,18 @@ export default function AdminDashboard() {
                                     </div>
                                     <div>
                                         <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>WhatsApp / Teléfono <span style={{color: 'var(--danger)'}}>*</span></label>
-                                        <input type="text" name="phone" required placeholder="Ej: +52 55 1234 5678" style={{ width: '100%', padding: '12px 14px', borderRadius: '8px', border: '1px solid var(--glass-border)', backgroundColor: 'rgba(255,255,255,0.03)', color: 'var(--text-primary)', outline: 'none' }} />
+                                        <div style={{ display: 'flex', gap: '8px' }}>
+                                            <select name="country_code" style={{ width: '80px', padding: '12px', borderRadius: '8px', border: '1px solid var(--glass-border)', backgroundColor: 'rgba(255,255,255,0.03)', color: 'var(--text-primary)', outline: 'none', appearance: 'none', textAlign: 'center' }}>
+                                                <option value="52" style={{color: '#000'}}>+52</option>
+                                                <option value="34" style={{color: '#000'}}>+34</option>
+                                                <option value="1" style={{color: '#000'}}>+1</option>
+                                                <option value="57" style={{color: '#000'}}>+57</option>
+                                                <option value="54" style={{color: '#000'}}>+54</option>
+                                                <option value="56" style={{color: '#000'}}>+56</option>
+                                                <option value="51" style={{color: '#000'}}>+51</option>
+                                            </select>
+                                            <input type="text" name="phone" required placeholder="Ej: 55 1234 5678" style={{ flex: 1, padding: '12px 14px', borderRadius: '8px', border: '1px solid var(--glass-border)', backgroundColor: 'rgba(255,255,255,0.03)', color: 'var(--text-primary)', outline: 'none' }} />
+                                        </div>
                                     </div>
                                     <button type="submit" className="btn-primary" style={{ height: '42px', padding: '0 24px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                                         <UserPlus size={16} /> Registrar
