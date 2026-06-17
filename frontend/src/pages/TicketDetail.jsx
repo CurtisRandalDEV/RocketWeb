@@ -270,7 +270,10 @@ export default function TicketDetail() {
                                     <div style={{ width: '24px', height: '24px', borderRadius: '50%', backgroundColor: 'rgba(249,115,22,0.1)', color: 'var(--accent-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem' }}>
                                         {ticket.client_name.charAt(0)}
                                     </div>
-                                    {ticket.client_name}
+                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                        <span>{ticket.client_name}</span>
+                                        {ticket.client_company && <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 'normal' }}>{ticket.client_company}</span>}
+                                    </div>
                                 </div>
                             </div>
                             <hr style={{ border: 0, borderTop: '1px solid var(--glass-border)', margin: 0 }} />
